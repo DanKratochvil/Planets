@@ -1,0 +1,32 @@
+﻿<Window x:Class="Planets.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:views="clr-namespace:Planets.Views"
+        xmlns:vm="clr-namespace:Planets.ViewModels" Title="Planet Manager" Width="900"
+        Height="600">
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+
+
+        <!--  Filter section  -->
+        <views:FilterView Grid.Row="0" DataContext="{Binding FilterViewModel}" />
+
+        <!--  Planet list  -->
+        <views:ListView Grid.Row="1" DataContext="{Binding ListViewModel}" />
+
+        <!--  Planet Detail  -->
+        <views:DetailView Grid.Row="2" DataContext="{Binding DetailViewModel}" />
+
+        <!--  Property Detail  -->
+        <views:PropertyView Grid.Row="3" DataContext="{Binding PropertyViewModel}" />
+
+    </Grid>
+</Window>
