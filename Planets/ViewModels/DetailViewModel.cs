@@ -41,13 +41,14 @@ namespace Planets.ViewModels
                     OnPropertyChanged(nameof(PlanetProperties));
 
                     AvailableProperties = GetAvailableNewPropertiesforPlanet;
+                    EditedPropertyValue = String.Empty;
                 }
             }
         }
 
         public ObservableCollection<PlanetProperty> PlanetProperties { get; set; } = new ObservableCollection<PlanetProperty>();
 
-        private List<Property> _availableProperties;
+        private List<Property> _availableProperties = new List<Property>();
         public List<Property> AvailableProperties
         {
             get => _availableProperties;
@@ -79,7 +80,11 @@ namespace Planets.ViewModels
         public Property? EditedPropertyName
         {
             get => _editedPropertyName;
-            set => SetProperty(ref _editedPropertyName, value);
+            set
+            {
+                SetProperty(ref _editedPropertyName, value);
+                AddPropertyCommand?.RaiseCanExecuteChanged();
+            }
         }
 
         private string _editedPropertyValue;
@@ -95,7 +100,7 @@ namespace Planets.ViewModels
 
         private bool CanAddProperty()
         {
-            return SelectedPlanetProperty == null ? true:false;
+            return SelectedPlanetProperty == null && EditedPropertyName != null ? true : false;
         }
 
         private bool CanUpdateProperty()
